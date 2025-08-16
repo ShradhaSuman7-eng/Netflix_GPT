@@ -49,12 +49,9 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value || "New User",
-            photoURL:LOGO
-  ,
+            photoURL: LOGO,
           })
             .then(() => {
-            
-
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
                 addUser({

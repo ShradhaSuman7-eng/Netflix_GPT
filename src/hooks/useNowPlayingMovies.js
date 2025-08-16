@@ -6,6 +6,7 @@ import {addNowPlayingMovies} from '../utils/moviesSlice'
 import { useEffect } from 'react';
 
 
+
 function useNowPlayingMovies() {
 
   const dispatch=useDispatch(); 
@@ -15,6 +16,9 @@ function useNowPlayingMovies() {
       API_OPTIONS
     );
     const json = await data.json();
+
+
+
     dispatch(addNowPlayingMovies(json.results))
   };
 
