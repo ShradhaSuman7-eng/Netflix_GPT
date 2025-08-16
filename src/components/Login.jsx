@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from "react";
 import bg from "../assets/bg.jpg";
 import Header from "./Header";
@@ -9,13 +8,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/fireBase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { LOGO } from "../utils/constants";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -51,23 +49,21 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value || "New User",
-            photoURL:
-              "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png",
+            photoURL:LOGO
+  ,
           })
             .then(() => {
-              // console.log(userCredential.user);
+            
 
-
-              const {uid,email,displayName,photoURL}=auth.currentUser;
+              const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
                 addUser({
-                  uid:uid,
-                  email:email,
-                  displayName:displayName,
-                  photoURL:photoURL
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
                 })
-              )
-              navigate("/browse");
+              );
             })
             .catch((error) => {
               setErrorMessage(`${error.code} - ${error.message}`);
@@ -84,8 +80,7 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          console.log(userCredential.user);
-          navigate("/browse");
+          const user = userCredential.user;
         })
         .catch((error) => {
           setErrorMessage(`${error.code} - ${error.message}`);
